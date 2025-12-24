@@ -94,6 +94,27 @@ p {
 	text-decoration: none;
 }
 
+.logo-letter {
+	font-family: 'Baloo 2', 'UltraRegular', cursive;
+	font-size: 30px;
+	line-height: 1;
+	text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kk-logo-small .logo-letter {
+	font-size: 24px;
+}
+
+.logo-k { color: #e63946; }  /* Red */
+.logo-i { color: #fdbf00; }  /* Yellow */
+.logo-d1 { color: #57a773; } /* Green */
+.logo-d2 { color: #4da6ff; } /* Light Blue */
+.logo-y { color: #2a6fdb; }  /* Blue */
+.logo-k2 { color: #e63946; } /* Red */
+.logo-o { color: #fdbf00; }  /* Yellow */
+.logo-d3 { color: #4da6ff; } /* Light Blue */
+.logo-e { color: #1d4ed8; }  /* Deep Blue */
+
 .kk-nav {
 	align-items: center;
 	display: flex;
@@ -616,4 +637,51 @@ p {
 		width: 100%;
 		text-align: center;
 	}
+}
+
+/* Hero Carousel */
+.hero-carousel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 24px;
+	overflow: hidden;
+	z-index: 0; /* Behind content */
+}
+
+/* Ensure content sits on top */
+.kk-hero > *:not(.hero-carousel) {
+	position: relative;
+	z-index: 2;
+}
+
+.hero-slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+	opacity: 1; /* Fully visible */
+}
+
+/* Add a dark overlay gradient that fades out to the right */
+.hero-carousel::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* Gradient from solid ink color on left to transparent on right */
+	background: linear-gradient(to right, rgba(24, 54, 66, 1) 30%, rgba(24, 54, 66, 0.6) 60%, rgba(24, 54, 66, 0) 90%);
+	z-index: 1;
 }
