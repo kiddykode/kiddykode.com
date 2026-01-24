@@ -105,6 +105,10 @@ p {
 	font-size: 24px;
 }
 
+.kk-logo-small-small .logo-letter {
+	font-size: 18px;
+}
+
 .logo-k { color: #e63946; }  /* Red */
 .logo-i { color: #fdbf00; }  /* Yellow */
 .logo-d1 { color: #57a773; } /* Green */
