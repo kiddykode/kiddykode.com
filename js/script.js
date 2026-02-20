@@ -47,27 +47,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // =========================================
 
     // --- Mobile Menu Toggle ---
+    // --- Mobile Menu Toggle ---
     const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu = document.getElementById('nav-menu'); // Use ID selector
     
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
-            const isVisible = navMenu.style.display === 'flex';
-            navMenu.style.display = isVisible ? 'none' : 'flex';
-            
-            // Simple style adjustments for mobile menu when active
-            if (!isVisible) {
-                navMenu.style.flexDirection = 'column';
-                navMenu.style.position = 'absolute';
-                navMenu.style.top = '70px';
-                navMenu.style.left = '0';
-                navMenu.style.width = '100%';
-                navMenu.style.background = '#fff';
-                navMenu.style.padding = '20px';
-                navMenu.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
-            } else {
-                navMenu.style.display = ''; // Reset to CSS default
-            }
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = document.querySelectorAll('.kk-nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
         });
     }
 

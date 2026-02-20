@@ -11,8 +11,8 @@
 	--kk-ink: #183642;
 
 	/* Font size variables */
-	--fs-xxl: 2.5rem;     /* Hero headline */
-	--fs-xl: 2rem;        /* Section headline */
+	--fs-xxl: clamp(2rem, 5vw + 1rem, 3rem);     /* Hero headline */
+	--fs-xl: clamp(1.5rem, 4vw + 1rem, 2.2rem);  /* Section headline */
 	--fs-lg: 1.4rem;      /* Subheadline, key points */
 	--fs-md: 1.125rem;    /* Body text, regular paragraphs */
 	--fs-sm: 1rem;        /* Small text, program cards */
@@ -101,6 +101,42 @@ p {
 	padding: 0 0 28px;
 	flex-wrap: wrap;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* smooth transition */
+    position: relative; /* Ensure absolute positioning context for mobile menu */
+    z-index: 100; /* Ensure header stays on top of hero section */
+}
+
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+	display: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	z-index: 100;
+}
+
+.hamburger .bar {
+	display: block;
+	width: 25px;
+	height: 3px;
+	margin: 5px auto;
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	background-color: #fff;
+	border-radius: 2px;
+}
+
+/* Hamburger Animation active state */
+.hamburger.active .bar:nth-child(2) {
+	opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(1) {
+	transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(3) {
+	transform: translateY(-8px) rotate(-45deg);
 }
 
 .kk-logo {
@@ -709,15 +745,85 @@ p {
 }
 
 @media (max-width: 640px) {
+	.site-wrapper {
+		padding: 16px 20px; /* Reduced padding from 24px */
+	}
+
 	#header {
-		flex-direction: column;
-		row-gap: 16px;
+		flex-direction: row; /* Keep row direction to align logo and hamburger */
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		padding-bottom: 16px;
+	}
+	
+	.hamburger {
+		display: block; /* Show hamburger on mobile */
 	}
 
 	.kk-nav {
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 12px;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: rgba(24, 54, 66, 0.98); /* Deep ink color with slight transparency */
+		width: 100%;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+		padding: 40px 20px;
+		border-radius: 0 0 20px 20px;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+		box-sizing: border-box; /* Ensure padding doesn't increase width */
+		
+		/* Hidden state */
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-20px);
+		transition: all 0.3s ease-in-out;
+		z-index: 99;
+		pointer-events: none; /* Prevent clicks when hidden */
+	}
+	
+	.kk-nav.active {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+	
+	.kk-nav li {
+		width: 100%;
+		text-align: center;
+		opacity: 0;
+		transform: translateY(10px);
+		transition: opacity 0.3s ease, transform 0.3s ease;
+	}
+
+    /* Glass Nav Specific Mobile Menu Style */
+    #header.glass-nav .kk-nav {
+        margin-top: 20px;
+        border-radius: 20px;
+    }
+
+	/* Staggered animation for list items */
+	.kk-nav.active li {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	
+	.kk-nav.active li:nth-child(1) { transition-delay: 0.1s; }
+	.kk-nav.active li:nth-child(2) { transition-delay: 0.15s; }
+	.kk-nav.active li:nth-child(3) { transition-delay: 0.2s; }
+	.kk-nav.active li:nth-child(4) { transition-delay: 0.25s; }
+	.kk-nav.active li:nth-child(5) { transition-delay: 0.3s; }
+	.kk-nav.active li:nth-child(6) { transition-delay: 0.35s; }
+	.kk-nav.active li:nth-child(7) { transition-delay: 0.4s; }
+
+	.kk-nav a {
+		font-size: 1.2rem; /* Larger touch targets */
+		display: block;
+		padding: 10px;
 	}
 	
 	.kk-nav a {
